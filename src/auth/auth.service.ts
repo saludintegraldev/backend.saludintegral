@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateUserDTO, LoginUserDTO } from './dto';
+import { RegisterUserDTO, LoginUserDTO } from './dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt'
 import { JwtPayload } from './interfaces/jwt_payload.interface';
@@ -17,7 +17,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ){}
 
-  async create(createUserDTO: CreateUserDTO) {    
+  async create(createUserDTO: RegisterUserDTO) {    
     try {
       const { password, ...userData } = createUserDTO;
       const user = this.userRepository.create({
