@@ -31,6 +31,12 @@ export class User {
     })
     roles: string [];
 
+    @Column('text', {
+        array: true,
+        nullable: true,
+    })
+    pathology: string
+
     @BeforeInsert()
     checkFieldBeforeInsert(){
         this.email = this.email.toLowerCase().trim();
