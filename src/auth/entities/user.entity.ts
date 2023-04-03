@@ -1,4 +1,4 @@
-import { BeforeInsert, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('users')
@@ -8,7 +8,7 @@ export class User {
     id: string;
 
     @Column('text', {
-        unique: true,
+        unique: true,//!Nota: se debe tener en cuenta que los usuarios si pueden tener un mismo email por que podrias abrir un usuario a un familiar bien sea menor de edad o de la tercera edad
     })
     email: string;
 
@@ -32,10 +32,12 @@ export class User {
     roles: string [];
 
     @Column('text', {
-        array: true,
-        nullable: true,
+        default: 'ByRegister'
     })
-    pathology: string
+    CreateBY: string    
+
+    @CreateDateColumn()
+    CreateOn: string
 
     @BeforeInsert()
     checkFieldBeforeInsert(){

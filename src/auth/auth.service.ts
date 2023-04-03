@@ -1,11 +1,14 @@
 import { BadRequestException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { RegisterUserDTO, LoginUserDTO } from './dto';
+import { RegisterUserDTO, LoginUserDTO, CreateUserDTO } from './dto';
 import { User } from './entities/user.entity';
 import * as bcrypt from 'bcrypt'
 import { JwtPayload } from './interfaces/jwt_payload.interface';
 import { JwtService } from '@nestjs/jwt';
+import { get } from 'http';
+import { Auth } from './decorators';
+
 
 
 @Injectable()
@@ -17,9 +20,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ){}
 
-  async create(createUserDTO: RegisterUserDTO) {    
+  async register(registerUserDTO: RegisterUserDTO) {    
     try {
-      const { password, ...userData } = createUserDTO;
+      const { password, ...userData } = registerUserDTO;
       const user = this.userRepository.create({
         ...userData,
         password: bcrypt.hashSync( password, 10 )
@@ -52,6 +55,40 @@ export class AuthService {
         ...user,
         token: this.getJwtToken({ id: user.id })
       };   
+  }
+
+  async create(createUserDTO: CreateUserDTO){
+    try {
+      if( !createUserDTO.password ){
+        createUserDTO.password = createUserDTO.fullName
+        .toLowerCase()
+        .replace(/^\w/, (c) => c.toUpperCase())
+        .replaceAll(' ','') + 123;
+        
+      }
+      const {  password, ...userData } = createUserDTO;
+      const user = this.userRepository.create({
+        ...userData,
+        password: bcrypt.hashSync( password, 10 )
+      });
+      await this.userRepository.save( user )
+      delete user.password;
+      delete user.isActive;
+      delete user.roles;
+      return {
+        ...user,
+        token: this.getJwtToken({ id: user.id })
+      };  
+    } catch (error) {
+      this.handleDBErrors(error)
+    }
+  }
+
+  async refreshToken( user: User ){
+    return {
+      ...user,
+      token: this.getJwtToken({ id: user.id })
+    }; 
   }
 
   private getJwtToken( payload: JwtPayload ){
