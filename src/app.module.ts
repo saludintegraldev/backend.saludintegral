@@ -2,9 +2,8 @@ import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.services';
 import { AuthModule } from './auth/auth.module';
+import { SendmailModule } from './sendmail/sendmail.module';
 
 @Module({
   imports: [
@@ -21,18 +20,17 @@ import { AuthModule } from './auth/auth.module';
     }),
     MailerModule.forRoot({
       transport: {
-        host: 'smtp.gmail.com',
-        port: 465,
-        secure: true,
+        host: process.env.MAIL_HOST,
         auth: {
           user: 'saludintegraldev@gmail.com',
-          pass: 'khhdiwouknxigkjg'
+          pass: process.env.PASS,
         }
       }
     }),
     AuthModule,
+    SendmailModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
