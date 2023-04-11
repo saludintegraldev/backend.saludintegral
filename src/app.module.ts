@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { SendmailModule } from './sendmail/sendmail.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
 
 @Module({
   imports: [
@@ -22,13 +23,14 @@ import { SendmailModule } from './sendmail/sendmail.module';
       transport: {
         host: process.env.MAIL_HOST,
         auth: {
-          user: 'saludintegraldev@gmail.com',
-          pass: process.env.PASS,
+          user: process.env.SENDGRID_USER,
+          pass: process.env.SENDGRID_API_KEY,
         }
       }
     }),
     AuthModule,
     SendmailModule,
+    SchedulerModule,
   ],
   controllers: [],
   providers: [],
