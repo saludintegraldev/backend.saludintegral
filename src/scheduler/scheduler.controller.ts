@@ -1,23 +1,24 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { SchedulerService } from './scheduler.service';
 import { CreateSchedulerDto } from './dto/create-scheduler.dto';
 import { UpdateSchedulerDto } from './dto/update-scheduler.dto';
+import { GetSchedulerDTO } from './dto/get-scheduler.dto';
 
 @Controller('scheduler')
 export class SchedulerController {
+  
   constructor(private readonly schedulerService: SchedulerService) {}
-
   
-  @Get('slot-available')
-  getScheduler() {
-    return this.schedulerService.getScheduler();
-  } 
-  
-  @Post()
-  create(@Body() createSchedulerDto: CreateSchedulerDto) {
-    return this.schedulerService.create(createSchedulerDto);
+  @Post('params')
+  catchParams(@Body() getSchedulerDTO: GetSchedulerDTO) {
+    return this.schedulerService.getScheduler(getSchedulerDTO);
   }
 
+
+
+
+
+  //TODO: PARA BORRAR O USAR //!OJO
   @Get()
   findAll() {
     return this.schedulerService.findAll();
@@ -38,3 +39,6 @@ export class SchedulerController {
     return this.schedulerService.remove(+id);
   }
 }
+
+
+

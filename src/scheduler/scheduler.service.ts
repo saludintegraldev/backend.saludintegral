@@ -1,12 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
 import { CreateSchedulerDto } from './dto/create-scheduler.dto';
+import { GetSchedulerDTO } from './dto/get-scheduler.dto';
 import { UpdateSchedulerDto } from './dto/update-scheduler.dto';
 import { SchedulerResponse } from './interfaces/schedulers-response.interface';
 
 const BASE_URL = 'http://microservicegomedisys.eastus2.cloudapp.azure.com:9047/api';
-
-
 
 @Injectable()
 export class SchedulerService {
@@ -24,21 +23,24 @@ export class SchedulerService {
     return goToken.data;
   }  
   
-  async getScheduler(){
-    const extToken = await this.generateToken();
-    const {data} = await this.axios.get<SchedulerResponse>(
-      `${BASE_URL}/Appointment/GetScheduler/6B26F209-9669-484B-B8F3-9B3D499963DE/06/2023-04-12 00:00/2023-04-30 23:59`, {
-        headers: {
-          Authorization: `Bearer ${extToken}`
+  async getScheduler(getSchedulerDTO: GetSchedulerDTO){
+    try {
+      const extToken = await this.generateToken();
+      const data = getSchedulerDTO;
+      //TODO:revisar la interface de SchedulerResponse para hacerla lo mas generica posible
+      const schedulerResponse = await this.axios.get<SchedulerResponse>(
+        `${BASE_URL}/Appointment/GetScheduler/6B26F209-9669-484B-B8F3-9B3D499963DE/${data.idExam}/${data.initialDate} 00:00/${data.lastDate} 23:59`, {
+          headers: {
+            Authorization: `Bearer ${extToken}`
+          }
         }
-      }
-    )
-    return data;
+      )
+      return schedulerResponse.data;
+    } catch (error) {
+      throw new InternalServerErrorException('No se encontro disponibilidad para esta agenda');
+      //TODO: Controlar el error con las validacione de FH para capturar el error especifico 
+    }
   }
-
-  
-
-
 
   //!Generados Automaticamente por el cli de nest !!Para borrar o usar!!
   create(createSchedulerDto: CreateSchedulerDto) {

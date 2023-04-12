@@ -1,1 +1,4 @@
-export class CreateSchedulerDto {}
+export class CreateSchedulerDto {
+
+    
+}
