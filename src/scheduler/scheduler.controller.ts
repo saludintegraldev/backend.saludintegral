@@ -6,7 +6,7 @@ import { GetSchedulerDTO } from './dto/get-scheduler.dto';
 
 @Controller('scheduler')
 export class SchedulerController {
-  
+
   constructor(private readonly schedulerService: SchedulerService) {}
   
   @Post('params')
@@ -14,29 +14,14 @@ export class SchedulerController {
     return this.schedulerService.getScheduler(getSchedulerDTO);
   }
 
-
-
-
-
-  //TODO: PARA BORRAR O USAR //!OJO
-  @Get()
-  findAll() {
-    return this.schedulerService.findAll();
+  @Get('exams')
+  getAllExams() {
+    return this.schedulerService.getExams();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.schedulerService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSchedulerDto: UpdateSchedulerDto) {
-    return this.schedulerService.update(+id, updateSchedulerDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.schedulerService.remove(+id);
+  @Get('insurances')
+  getAllInsurances() {
+    return this.schedulerService.getInsurances();
   }
 }
 

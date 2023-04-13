@@ -20,6 +20,11 @@ export class User {
     @Column('text')
     fullName: string;
 
+    @Column('text',{
+        default: null,
+    })
+    documentPatient: string;
+
     @Column('bool',{
         default: true
     })

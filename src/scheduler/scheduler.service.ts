@@ -6,6 +6,7 @@ import { UpdateSchedulerDto } from './dto/update-scheduler.dto';
 import { SchedulerResponse } from './interfaces/schedulers-response.interface';
 
 const BASE_URL = 'http://microservicegomedisys.eastus2.cloudapp.azure.com:9047/api';
+const keyWS = '6B26F209-9669-484B-B8F3-9B3D499963DE'
 
 @Injectable()
 export class SchedulerService {
@@ -29,7 +30,7 @@ export class SchedulerService {
       const data = getSchedulerDTO;
       //TODO:revisar la interface de SchedulerResponse para hacerla lo mas generica posible
       const schedulerResponse = await this.axios.get<SchedulerResponse>(
-        `${BASE_URL}/Appointment/GetScheduler/6B26F209-9669-484B-B8F3-9B3D499963DE/${data.idExam}/${data.initialDate} 00:00/${data.lastDate} 23:59`, {
+        `${BASE_URL}/Appointment/GetScheduler/${keyWS}/${data.idExam}/${data.initialDate} 00:00/${data.lastDate} 23:59`, {
           headers: {
             Authorization: `Bearer ${extToken}`
           }
@@ -42,24 +43,31 @@ export class SchedulerService {
     }
   }
 
-  //!Generados Automaticamente por el cli de nest !!Para borrar o usar!!
-  create(createSchedulerDto: CreateSchedulerDto) {
+  async getExams(){
+    const extToken = await this.generateToken();
+    const getExams = await this.axios.get(
+      `${BASE_URL}/Appointment/GetListsForAppointments/Exams/${keyWS}`,{
+        headers:{
+          Authorization: `Bearer ${extToken}`
+        }
+      }
+    )
+    return getExams.data;
+  }
+
+  async getInsurances(){
+    const extToken = await this.generateToken();
+    const getInsurances = await this.axios.get(
+      `${BASE_URL}/Appointment/GetListsForAppointments/insurances/${keyWS}`,{
+        headers:{
+          Authorization: `Bearer ${extToken}`
+        }
+      }
+    )
+    return getInsurances.data;
+  }
+
+  createAppointment(createSchedulerDto: CreateSchedulerDto) {
     return 'This action adds a new scheduler';
-  }
-
-  findAll() {
-    return `This action returns all scheduler`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} scheduler`;
-  }
-
-  update(id: number, updateSchedulerDto: UpdateSchedulerDto) {
-    return `This action updates a #${id} scheduler`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} scheduler`;
   }
 }

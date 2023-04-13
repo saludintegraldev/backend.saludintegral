@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './auth/auth.module';
 import { SendmailModule } from './sendmail/sendmail.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
+import { InsurancesModule } from './insurances/insurances.module';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { SchedulerModule } from './scheduler/scheduler.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
-      synchronize: true,//en produccion no se usa
+      synchronize: true,//!NOTA: En produccion TRUE 
     }),
     MailerModule.forRoot({
       transport: {
@@ -31,6 +32,7 @@ import { SchedulerModule } from './scheduler/scheduler.module';
     AuthModule,
     SendmailModule,
     SchedulerModule,
+    InsurancesModule,
   ],
   controllers: [],
   providers: [],
