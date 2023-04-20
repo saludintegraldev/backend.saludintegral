@@ -10,10 +10,7 @@ services:
       target: ${STAGE}
       dockerfile: Dockerfile
     
-    volumes:
-      - .:/app/
-      - /app/node_modules
-
+    image: milangrisano/salud-integral-backend:0.1.0
     container_name: nest-app
     ports:
       - ${PORT}:${PORT}

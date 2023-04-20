@@ -7,6 +7,12 @@ import { UpdateInsuranceDto } from './dto/update-insurance.dto';
 export class InsurancesController {
   constructor(private readonly insurancesService: InsurancesService) {}
 
+  @Get('type')
+  getAllInsurances() {
+    return this.insurancesService.getInsurances();
+  }
+
+  //TODO: USAR O BORRAR  
   @Post()
   create(@Body() createInsuranceDto: CreateInsuranceDto) {
     return this.insurancesService.create(createInsuranceDto);

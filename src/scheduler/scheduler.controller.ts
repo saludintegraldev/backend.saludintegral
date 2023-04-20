@@ -18,11 +18,6 @@ export class SchedulerController {
   getAllExams() {
     return this.schedulerService.getExams();
   }
-
-  @Get('insurances')
-  getAllInsurances() {
-    return this.schedulerService.getInsurances();
-  }
 }
 
 
