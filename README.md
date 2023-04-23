@@ -40,7 +40,7 @@ $ docker buildx build \
 
 
 ```bash
-## Comando para crear y correr un contenedor en local
+## Build & Run container image in local
 docker container run \
 -p 3000:3000 \
 saludintegraldev/backend
