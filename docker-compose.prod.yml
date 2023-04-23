@@ -10,7 +10,7 @@ services:
       target: ${STAGE}
       dockerfile: Dockerfile
     
-    image: milangrisano/salud-integral-backend:0.1.0
+    image: milangrisano/salud-integral-backend:0.X.0
     container_name: nest-app
     ports:
       - ${PORT}:${PORT}
@@ -25,6 +25,12 @@ services:
       PORT: ${PORT}
       HOST_API: ${HOST_API}
       JWT_SECRET: ${JWT_SECRET}
+      GO_USER_NAME: ${GO_USER_NAME} 
+      GO_PASSWORD: ${GO_PASSWORD} 
+      BASE_URL_CONST: ${BASE_URL_CONST} 
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY} 
+      SENDGRID_USER: ${SENDGRID_USER} 
+      MAIL_HOST: ${MAIL_HOST}
   
   db:
     image: postgres:14.3

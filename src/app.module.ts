@@ -11,12 +11,14 @@ import { InsurancesModule } from './insurances/insurances.module';
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
-      // ssl: process.env.STAGE === 'prod',
-      // extra: {
-      //   ssl: process.env.STAGE === 'prod'
-      //         ? { rejectUnauthorized: false }
-      //         : null,
-      // },
+      //* Solo se utiliza en produccion
+      ssl: process.env.STAGE === 'prod',
+      extra: {
+        ssl: process.env.STAGE === 'prod'
+              ? { rejectUnauthorized: false }
+              : null,
+      },
+      //* Comentarlo en dev
       type: 'postgres',
       host: process.env.DB_HOST,
       port: +process.env.DB_PORT,
@@ -24,7 +26,7 @@ import { InsurancesModule } from './insurances/insurances.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
-      synchronize: true,//!NOTA: En produccion TRUE 
+      synchronize: true,//! En produccion TRUE 
     }),
     MailerModule.forRoot({
       transport: {

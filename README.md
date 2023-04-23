@@ -6,13 +6,20 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+### Clone project
+```bash
+# https 
+$ https://github.com/saludintegraldev/backend.saludintegral.git
+```
+
+### Installation
 
 ```bash
+# Dependencies Installation 
 $ yarn install
 ```
 
-## Running the app
+### Running the app
 
 ```bash
 # development
@@ -20,7 +27,13 @@ $ yarn run start
 
 # watch mode
 $ yarn run start:dev
+```
 
-# production mode
-$ yarn run start:prod
+
+```bash
+## Para construir una nueva imagen a docker hub ejecutar comando:
+$ docker buildx build \
+--platform linux/amd64,linux/arm64 \
+-t milangrisano/salud-integral-backend:0.3.0 \
+--push .
 ```

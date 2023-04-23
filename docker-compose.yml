@@ -1,6 +1,5 @@
 version: '3'
 
-
 services:
 
   app:
@@ -14,7 +13,7 @@ services:
       - .:/app/
       - /app/node_modules
 
-    container_name: nest-app
+    container_name: Backend-SI
     ports:
       - ${PORT}:${PORT}
     environment:
@@ -28,6 +27,11 @@ services:
       PORT: ${PORT}
       HOST_API: ${HOST_API}
       JWT_SECRET: ${JWT_SECRET}
+      GO_USER_NAME: ${GO_USER_NAME} 
+      GO_PASSWORD: ${GO_PASSWORD} 
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY} 
+      SENDGRID_USER: ${SENDGRID_USER} 
+      MAIL_HOST: ${MAIL_HOST}
   
   db:
     image: postgres:14.3
@@ -37,7 +41,7 @@ services:
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
-    container_name: ${DB_NAME}
+    container_name: ${DB_CONTAINER}
     volumes:
       - postgres-db:/var/lib/postgresql/data
 
