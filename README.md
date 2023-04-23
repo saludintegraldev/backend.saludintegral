@@ -29,9 +29,9 @@ $ yarn run start
 $ yarn run start:dev
 ```
 
-
+### Docker Image
 ```bash
-## Para construir una nueva imagen a docker hub ejecutar comando:
+## Build new multiplatform image and push to DockerHub
 $ docker buildx build \
 --platform linux/amd64,linux/arm64 \
 -t milangrisano/salud-integral-backend:0.3.0 \
