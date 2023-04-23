@@ -41,12 +41,8 @@ jobs:
       env:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
-        docker buildx build \
-        --platform linux/amd64,linux/arm64 \
-        -t saludintegraldev/backend:$NEW_VERSION .
-        docker buildx build \
-        --platform linux/amd64,linux/arm64 \
-        -t saludintegraldev/backend:latest .
+        docker buildx build --platform linux/amd64,linux/arm64 -t saludintegraldev/backend:$NEW_VERSION .
+        docker buildx build --platform linux/amd64,linux/arm64 -t saludintegraldev/backend:latest .
 #        docker build -t saludintegraldev/backend:$NEW_VERSION .
 #        docker build -t saludintegraldev/backend .
     
