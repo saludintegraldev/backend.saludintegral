@@ -21,6 +21,6 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   await app.listen(process.env.PORT);
-  logger.log(`Salud Integral App running on port ${ process.env.PORT }`)
+  logger.log(`Salud Integral running on port ${ process.env.PORT }`)
 }
 bootstrap();
