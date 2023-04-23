@@ -38,12 +38,12 @@ jobs:
       env:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
-        docker build -t saludintegraldev/backend:0.0.1 .
         docker build -t saludintegraldev/backend:$NEW_VERSION .
+        docker build -t saludintegraldev/backend .
     
     - name: Push docker image
       env:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
         docker push saludintegraldev/backend:$NEW_VERSION
-        docker push saludintegraldev/backend:latest
+        docker push saludintegraldev/backend
