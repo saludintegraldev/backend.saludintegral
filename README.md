@@ -6,6 +6,7 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## Dev
 ### Clone project
 ```bash
 # https 
@@ -37,7 +38,6 @@ $ docker buildx build \
 -t milangrisano/salud-integral-backend:0.3.0 \
 --push .
 ```
-
 
 ```bash
 ## Build & Run container image in local
