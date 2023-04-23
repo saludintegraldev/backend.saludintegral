@@ -24,12 +24,15 @@ jobs:
         minor_patttern: "feat:"
         format: "${major}.${minor}.${patch}-prerelease${increment}"
       id: version
+      
+    - name: Create BuildX
+      run: |
+        docker buildx create --name mybuilder --driver docker-container --bootstrap --use
         
     - name: Docker login
       env:
         DOCKER_USER: ${{ secrets.DOCKER_USER }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
         
       run: |
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
@@ -38,8 +41,14 @@ jobs:
       env:
         NEW_VERSION: ${{ steps.version.outputs.version }}
       run: |
-        docker build -t saludintegraldev/backend:$NEW_VERSION .
-        docker build -t saludintegraldev/backend .
+        docker buildx build \
+        --platform linux/amd64,linux/arm64 \
+        -t saludintegraldev/backend:$NEW_VERSION .
+        docker buildx build \
+        --platform linux/amd64,linux/arm64 \
+        -t saludintegraldev/backend .
+#        docker build -t saludintegraldev/backend:$NEW_VERSION .
+#        docker build -t saludintegraldev/backend .
     
     - name: Push docker image
       env:
