@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+
+  app:
+    image: milangrisano/salud-integral-backend
+    container_name: salud-integral-backend
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      APP_VERSION: ${APP_VERSION}
+      STAGE: ${STAGE}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      PORT: ${PORT}
+      HOST_API: ${HOST_API}
+      JWT_SECRET: ${JWT_SECRET}
+      GO_USER_NAME: ${GO_USER_NAME} 
+      GO_PASSWORD: ${GO_PASSWORD} 
+      SENDGRID_API_KEY: ${SENDGRID_API_KEY} 
+      SENDGRID_USER: ${SENDGRID_USER} 
+      MAIL_HOST: ${MAIL_HOST}
