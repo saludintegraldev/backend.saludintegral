@@ -37,3 +37,11 @@ $ docker buildx build \
 -t milangrisano/salud-integral-backend:0.3.0 \
 --push .
 ```
+
+
+```bash
+## Comando para crear y correr un contenedor en local
+docker container run \
+-p 3000:3000 \
+saludintegraldev/backend
+```
