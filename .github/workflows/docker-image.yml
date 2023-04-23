@@ -33,7 +33,7 @@ jobs:
     
     - name: Push docker image
       run: |
-        docker build push saludintegraldev/backend:0.0.1
+        docker push saludintegraldev/backend:0.0.1
     
    #- name: Build the Docker image
    #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
