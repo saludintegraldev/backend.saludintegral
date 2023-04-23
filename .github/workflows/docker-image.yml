@@ -3,8 +3,8 @@ name: Docker Image CI
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
 
 jobs:
 
@@ -40,15 +40,7 @@ jobs:
     - name: Build docker image
       env:
         NEW_VERSION: ${{ steps.version.outputs.version }}
-      run: |
-        docker buildx build --platform linux/amd64,linux/arm64 -t saludintegraldev/backend:$NEW_VERSION --push .
-        docker buildx build --platform linux/amd64,linux/arm64 -t saludintegraldev/backend:latest --push .
-#        docker build -t saludintegraldev/backend:$NEW_VERSION .
-#        docker build -t saludintegraldev/backend .
-    
-#    - name: Push docker image
-#      env:
-#        NEW_VERSION: ${{ steps.version.outputs.version }}
 #      run: |
-#        docker push saludintegraldev/backend:$NEW_VERSION
-#        docker push saludintegraldev/backend:latest
+#        docker buildx build --platform linux/amd64,linux/arm64 -t saludintegraldev/backend:$NEW_VERSION --push .
+#        docker buildx build --platform linux/amd64,linux/arm64 -t saludintegraldev/backend:latest --push .
+
