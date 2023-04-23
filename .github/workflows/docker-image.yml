@@ -26,6 +26,14 @@ jobs:
         echo "login start"
         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
         echo "login end"
+        
+    - name: Build docker image
+      run: |
+        build -t saludintegraldev/backend:0.0.1 .
+    
+    - name: Push docker image
+      run: |
+        build push saludintegraldev/backend:0.0.1 .
     
    #- name: Build the Docker image
    #  run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
