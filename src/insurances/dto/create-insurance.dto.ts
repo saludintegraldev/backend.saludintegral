@@ -1,7 +1,9 @@
-import { IsString, MinLength } from "class-validator";
+import { IsString, MinLength, UUIDVersion } from "class-validator";
 
 
 export class CreateInsuranceDto {
+
+    id: UUIDVersion;
 
     @IsString()
     @MinLength(1)    

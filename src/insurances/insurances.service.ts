@@ -44,32 +44,11 @@ export class InsurancesService {
     return getInsurances.data;
   }
 
-
-
-  
-
-
-
-
-  //TODO: BORRAR O UTILIZAR
-
-  create(createInsuranceDto: CreateInsuranceDto) {
-    return createInsuranceDto;
-  }
-
-  findAll() {
-    return `This action returns all insurances`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} insurance`;
-  }
-
-  update(id: number, updateInsuranceDto: UpdateInsuranceDto) {
-    return `This action updates a #${id} insurance`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} insurance`;
-  }
+  // async update( id: string, updateInsuranceDto: UpdateInsuranceDto ){
+  //   const insurances = await this.insurancesRepository.preload({
+  //     id: id,
+  //     ...updateInsuranceDto
+  //   });
+  //   return this.insurancesRepository.save( insurances );
+  // }
 }

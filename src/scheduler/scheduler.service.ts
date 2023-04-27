@@ -1,8 +1,7 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import axios, { AxiosInstance } from 'axios';
-import { CreateSchedulerDto } from './dto/create-scheduler.dto';
+import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { GetSchedulerDTO } from './dto/get-scheduler.dto';
-import { UpdateSchedulerDto } from './dto/update-scheduler.dto';
 import { SchedulerResponse } from './interfaces/schedulers-response.interface';
 
 const BASE_URL = 'http://microservicegomedisys.eastus2.cloudapp.azure.com:9047/api';
@@ -46,10 +45,8 @@ export class SchedulerService {
   async getExams(){
     const extToken = await this.generateToken();
     const getExams = await this.axios.get(
-      `${BASE_URL}/Appointment/GetListsForAppointments/Exams/${keyWS}`,{
-        headers:{
-          Authorization: `Bearer ${extToken}`
-        }
+      `${BASE_URL}/Appointment/GetListsForAppointments/Exams/${keyWS}`, {
+        headers:{ Authorization: `Bearer ${extToken}` },
       }
     )
     return getExams.data;
@@ -58,7 +55,8 @@ export class SchedulerService {
   async getInsurances(){
     const extToken = await this.generateToken();
     const getInsurances = await this.axios.get(
-      `${BASE_URL}/Appointment/GetListsForAppointments/insurances/${keyWS}`,{
+      `${BASE_URL}/Appointment/GetListsForAppointments/insurances/${keyWS}`,
+      {
         headers:{
           Authorization: `Bearer ${extToken}`
         }
@@ -67,7 +65,23 @@ export class SchedulerService {
     return getInsurances.data;
   }
 
-  createAppointment(createSchedulerDto: CreateSchedulerDto) {
-    return 'This action adds a new scheduler';
-  }
+  async choiceAppointment( createAppointmentDto:CreateAppointmentDto ){
+    try {
+      const extToken = await this.generateToken();
+      const  resp  = await this.axios.post(
+        `${BASE_URL}/Appointment/CreateAppointment`,
+        {
+          headers:{ Authorization: `Bearer ${extToken}` },
+          body: { ...createAppointmentDto }
+        }
+      ).then()
+      // return resp.data
+      // return appoiment.data;
+    } catch(error){
+      return error.response
+    }
+    
+  }  
+
+
 }

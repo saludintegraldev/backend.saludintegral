@@ -14,6 +14,8 @@ export class SendmailService {
           from: 'saludintegraldev@gmail.com',
           subject: sendMailData.subject,
           html: sendMailData.html
-      })
+      }
+    )
+    return `email sending to ${sendMailData.to}`
   }
 }

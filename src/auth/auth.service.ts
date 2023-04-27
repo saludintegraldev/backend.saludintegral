@@ -30,7 +30,7 @@ export class AuthService {
       delete user.roles;
       return {
         ...user,
-        token: this.getJwtToken({ id: user.id })
+        access_token: this.getJwtToken({ id: user.id })
       };  
     } catch (error) {
       this.handleDBErrors(error)
@@ -49,14 +49,14 @@ export class AuthService {
       throw new UnauthorizedException('Credential are not Valid (password)');
       return {
         ...user,
-        token: this.getJwtToken({ id: user.id })
+        access_token: this.getJwtToken({ id: user.id })
       };   
   }
 
   async create(createUserDTO: CreateUserDTO){
     try {
       if( !createUserDTO.password ){
-        createUserDTO.password = createUserDTO.fullName
+        createUserDTO.password = createUserDTO.name
         .toLowerCase()
         .replace(/^\w/, (c) => c.toUpperCase())
         .replaceAll(' ','') + 123;
@@ -83,13 +83,13 @@ export class AuthService {
   async refreshToken( user: User ){
     return {
       ...user,
-      token: this.getJwtToken({ id: user.id })
+      access_token: this.getJwtToken({ id: user.id })
     }; 
   }
 
   private getJwtToken( payload: JwtPayload ){
-    const token = this.jwtService.sign( payload );
-    return token;    
+    const access_token = this.jwtService.sign( payload );
+    return access_token;    
   }
 
   private handleDBErrors( error: any ): never {

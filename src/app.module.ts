@@ -7,17 +7,18 @@ import { SendmailModule } from './sendmail/sendmail.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
 import { InsurancesModule } from './insurances/insurances.module';
 
+
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       //* Solo se utiliza en produccion
-      ssl: process.env.STAGE === 'prod',
-      extra: {
-        ssl: process.env.STAGE === 'prod'
-              ? { rejectUnauthorized: false }
-              : null,
-      },
+      // ssl: process.env.STAGE === 'prod',
+      // extra: {
+      //   ssl: process.env.STAGE === 'prod'
+      //         ? { rejectUnauthorized: false }
+      //         : null,
+      // },
       //* Comentarlo en dev
       type: 'postgres',
       host: process.env.DB_HOST,
@@ -26,7 +27,7 @@ import { InsurancesModule } from './insurances/insurances.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       autoLoadEntities: true,
-      synchronize: true,//! En produccion TRUE 
+      synchronize: true,//! En produccion FALSE 
     }),
     MailerModule.forRoot({
       transport: {
