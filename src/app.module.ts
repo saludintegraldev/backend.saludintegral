@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { SendmailModule } from './sendmail/sendmail.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
 import { InsurancesModule } from './insurances/insurances.module';
+import { DoctorsModule } from './doctors/doctors.module';
 
 
 @Module({
@@ -42,6 +43,7 @@ import { InsurancesModule } from './insurances/insurances.module';
     SendmailModule,
     SchedulerModule,
     InsurancesModule,
+    DoctorsModule,
   ],
   controllers: [],
   providers: [],
