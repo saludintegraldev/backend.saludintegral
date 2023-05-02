@@ -56,7 +56,7 @@ export class AuthService {
   async create(createUserDTO: CreateUserDTO){
     try {
       if( !createUserDTO.password ){
-        createUserDTO.password = createUserDTO.name
+        createUserDTO.password = createUserDTO.fullName
         .toLowerCase()
         .replace(/^\w/, (c) => c.toUpperCase())
         .replaceAll(' ','') + 123;
@@ -70,7 +70,7 @@ export class AuthService {
       await this.userRepository.save( user )
       delete user.password;
       delete user.isActive;
-      delete user.roles;
+      // delete user.roles;
       return {
         ...user,
         token: this.getJwtToken({ id: user.id })
@@ -86,6 +86,8 @@ export class AuthService {
       access_token: this.getJwtToken({ id: user.id })
     }; 
   }
+
+ 
 
   private getJwtToken( payload: JwtPayload ){
     const access_token = this.jwtService.sign( payload );

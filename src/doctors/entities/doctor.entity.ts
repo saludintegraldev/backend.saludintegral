@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, BeforeUpdate, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Doctor {
@@ -12,7 +12,7 @@ export class Doctor {
     @Column('text', {
         unique: true
     })
-    name: string;
+    fullName: string;
 
     @Column('text')
     gender: string;
@@ -21,19 +21,41 @@ export class Doctor {
     consultingRoom: number;
 
     @Column('text',{
-        // array: true,
-        // default:[],
-        nullable: true
+        array: true,
+        default:[],
     })
-    consultationDays: string;
+    consultationDays: string[];
 
     @Column('text')
     timeTable: string
+
+    @Column('text', {
+        unique: true,
+    })
+    slug: string;
     
     //Todo: agregar a la entidad la columna image
     // @Column('text')
     // image: string
 
-    //Todo: hacer el beforeinsert para que el nombre del doctor ya tenga capitalizado el nombre
+    @BeforeInsert()
+    checkBeforeInsert(){
+        if(!this.slug){
+            this.slug = this.fullName
+            .toLowerCase()
+            .replaceAll(' ','_')
+            .replaceAll("'",'')
+        }
+        this.fullName = this.fullName
+        .toLowerCase()
+        .replace(/^\w/, (c) => c.toUpperCase());
+    }
 
+    @BeforeUpdate()
+    updateSlug(){
+        this.slug = this.fullName
+            .toLowerCase()
+            .replaceAll(' ','_')
+            .replaceAll("'",'')
+    }
 }

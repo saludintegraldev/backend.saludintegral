@@ -11,12 +11,12 @@ import { ValidRoles } from './interfaces/valid-roles';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Post('create-user')
+  @Post('register')
   registerUser(@Body() registerUserDTO: RegisterUserDTO) {
     return this.authService.register(registerUserDTO);
   }
   
-  @Post('signin')
+  @Post('login')
   loginUser(@Body() loginUserDTO: LoginUserDTO) {
     return this.authService.login(loginUserDTO);
   }

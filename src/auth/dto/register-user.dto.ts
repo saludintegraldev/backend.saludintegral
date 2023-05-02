@@ -4,7 +4,7 @@ export class RegisterUserDTO {
 
     @IsString()
     @Length(2, 100)
-    name: string;
+    fullName: string;
     
     @IsString()
     @IsEmail()
@@ -12,7 +12,6 @@ export class RegisterUserDTO {
 
     @IsString()
     @Length(6,50)
-    // @MaxLength(50)
     @Matches(
         /(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
         message: 'The password must have a Uppercase, lowercase letter and a number'

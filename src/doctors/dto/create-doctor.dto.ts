@@ -8,7 +8,7 @@ export class CreateDoctorDto {
 
     @IsString()
     @MinLength(1)
-    name: string;
+    fullName: string;
 
     @IsIn(['male', 'female'])
     gender: string;
@@ -18,13 +18,17 @@ export class CreateDoctorDto {
     @IsOptional()
     consultingRoom?: number;
 
-    @IsString()
+    @IsString({ each: true})
+    @IsArray()
     @IsOptional()
-    // @IsArray()
-    consultationDays?: string;
+    consultationDays?: string[];
 
     @IsString()
     @IsOptional()
     timeTable?: string;
+
+    @IsString()
+    @IsOptional()
+    slug?: string
 
 }

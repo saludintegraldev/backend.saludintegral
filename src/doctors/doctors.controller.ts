@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseUUIDPipe, Query } from '@nestjs/common';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 import { DoctorsService } from './doctors.service';
 import { CreateDoctorDto } from './dto/create-doctor.dto';
 import { UpdateDoctorDto } from './dto/update-doctor.dto';
@@ -12,23 +13,26 @@ export class DoctorsController {
     return this.doctorsService.create(createDoctorDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.doctorsService.findAll();
-  // }
+  @Get()
+  findAll( @Query() paginationDto: PaginationDto ) {
+    return this.doctorsService.findAll( paginationDto );
+  }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.doctorsService.findOne(+id);
-  // }
+  @Get(':term')
+  findOne(@Param('term') term: string) {
+    return this.doctorsService.findOne(term);
+  }
 
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateDoctorDto: UpdateDoctorDto) {
-  //   return this.doctorsService.update(+id, updateDoctorDto);
-  // }
+  @Patch(':id')
+  update(
+    @Param('id', ParseUUIDPipe) id: string,
+    @Body() updateDoctorDto: UpdateDoctorDto
+  ) {
+    return this.doctorsService.update( id, updateDoctorDto);
+  }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.doctorsService.remove(+id);
-  // }
+  @Delete(':id')
+  remove(@Param('id', ParseUUIDPipe) id: string) {
+    return this.doctorsService.remove(id);
+  }
 }

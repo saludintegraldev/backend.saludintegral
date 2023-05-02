@@ -7,6 +7,8 @@ import { SendmailModule } from './sendmail/sendmail.module';
 import { SchedulerModule } from './scheduler/scheduler.module';
 import { InsurancesModule } from './insurances/insurances.module';
 import { DoctorsModule } from './doctors/doctors.module';
+import { CommonModule } from './common/common.module';
+import { SeedModule } from './seed/seed.module';
 
 
 @Module({
@@ -44,6 +46,8 @@ import { DoctorsModule } from './doctors/doctors.module';
     SchedulerModule,
     InsurancesModule,
     DoctorsModule,
+    CommonModule,
+    SeedModule,
   ],
   controllers: [],
   providers: [],
